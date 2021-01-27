@@ -3,14 +3,19 @@
 {{ define "main" }}
 <div class="grid grid-cols-3 gap-4">
   <div class="col-span-3 lg:col-span-2 mb-3">
-    <h2 class="text-4xl">{{ humanize .Title }}</h2>
     {{if .IsHome}}
+    <h2 class="text-4xl">Más recientes</h2>
     {{.Scratch.Set "Paginator" (.Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections) (.Site.Params.paginator_pages) )}}
     {{else}}
+    <h2 class="text-4xl">{{ humanize .Title }}</h2>
     {{.Scratch.Set "Paginator" .Paginator}}
     {{end}}
     {{$paginator:=(.Scratch.Get "Paginator")}}
-    {{ range $paginator.Pages }}
+    {{ $myPages := $paginator.Pages }}
+    {{if not .IsHome}} <!-- sort by score -->
+    {{ $myPages = ($myPages.ByParam "score").Reverse }}
+    {{end}}
+    {{ range $myPages }}
     <a href="{{.RelPermalink}}">
       {{ .Render "summary" }}
     </a>
@@ -37,13 +42,18 @@
       {{ end }}
     </div>
 
+    {{ if .Site.Taxonomies.scores }}
+    <div class="bg-white panel mb-3">
+      <a class="text-xl text-center block duration-100 py-2 px-4 mx-4 hover:bg-gray-100 text-gray-700"
+      href="{{ $.Site.BaseURL }}/scores/top/">Todos los juegos</a>
+    </div>
+    {{ end }}
     {{ if .Site.Taxonomies.categories }}
     <div class="bg-white panel mb-3 pb-5">
       <p class="text-xl text-center text-gray-700 py-5">Categorías</p>
       {{ range $key, $value := .Site.Taxonomies.categories }}
       <a class="text-center block duration-100 py-2 px-4 mx-4 hover:bg-gray-100 text-gray-800"
         href="{{ $.Site.BaseURL }}/categories/{{ $key | urlize  }}">{{ $key | humanize }}</a>
-
       {{ end }}
     </div>
     {{ end }}
