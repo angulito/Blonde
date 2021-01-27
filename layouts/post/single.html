@@ -6,12 +6,14 @@
         <h1 class="title text-4xl">{{.Title}}</h1>
         <aside id="meta">
             <div>
+                <span class="material-icons md-18">score</span> <a class="text-l">Puntuación: {{ .Params.score }}</a>
                 <section>
-                    <h4 id="date"><span class="icon-access_time mr-1"></span>{{ .Date.Format "2006/01/02" }} </h4>
+                    <!-- <h4 id="date"><span class="icon-access_time mr-1"></span>{{ .Date.Format "2006/01/02" }} </h4> -->
+                    <h4 id="date"><span class="material-icons md-18 mr-1">date_range</span>{{ .Date.Format "2006/01/02" }} </h4>
                 </section>
                 {{ with .Params.tags }}
                 <div id="tags">
-                    <span class="icon-local_offer mr-1"></span>
+                    <span class="material-icons-outlined md-18">label</span>
                     {{ range . }}
                     <a href="{{ " tags" | absURL }}/{{ . | urlize }}">{{ . }}</a> |
                     {{ end }}
