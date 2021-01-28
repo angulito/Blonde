@@ -21,3 +21,30 @@
 .material-icons-outlined.md-24 { font-size: 24px; }
 .material-icons-outlined.md-36 { font-size: 36px; }
 .material-icons-outlined.md-48 { font-size: 48px; }
+
+/* images */
+.size-70 {
+  max-width: 70%
+}
+.size-90 {
+  max-width: 90%
+}
+.size-100 {
+  max-width: 100%
+}
+.h-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.auto-h-left {
+  margin-left: auto;
+}
+
+.container {
+  position: relative;
+}
+
+.top-left {
+  position: absolute !important;
+  top: 5%;
+}

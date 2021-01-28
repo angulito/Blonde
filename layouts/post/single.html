@@ -14,8 +14,8 @@
                 {{ with .Params.tags }}
                 <div id="tags">
                     <span class="material-icons-outlined md-18">label</span>
-                    {{ range . }}
-                    <a href="{{ " tags" | absURL }}/{{ . | urlize }}">{{ . }}</a> |
+                    {{ range $i, $e := . }}
+                    {{ if $i }} | {{ end }}<a href="{{ " tags" | absURL }}/{{ . | urlize }}">{{ $e }}</a>
                     {{ end }}
                 </div>
                 {{ end }}
